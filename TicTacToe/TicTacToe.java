@@ -5,6 +5,7 @@ import javax.swing.*;
 public class TicTacToe implements ActionListener 
 {
     Random random = new Random();
+    // first to create frame so using JFrame class and create object that class
     JFrame frame = new JFrame();
     JPanel title_Panel =new JPanel();
     JPanel button_panel =new JPanel();
@@ -13,6 +14,7 @@ public class TicTacToe implements ActionListener
     boolean player1_turn; 
     TicTacToe()
     {
+        // use JFrame object to access JFrame class methods "setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)" used for  
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700,700);
         frame.getContentPane().setBackground(new Color(60,60,60));
@@ -53,7 +55,7 @@ public class TicTacToe implements ActionListener
         {
             if(e.getSource()==buttons[i])
             {
-                if(player1_turn)
+              if(player1_turn)
                 {
                     if(buttons[i].getText()=="")
                     {
@@ -92,6 +94,7 @@ public class TicTacToe implements ActionListener
             player1_turn=true;
             textfield.setText("X turn");
         }
+
         else
         {
             player1_turn=false;
@@ -100,12 +103,14 @@ public class TicTacToe implements ActionListener
     }
     public void check()
     {
+        int check=0;
         if((buttons[0].getText()=="X")&&
         (buttons[1].getText()=="X")&&
         (buttons[2].getText()=="X")
         )
         {
             xWins(0, 1, 2);
+            check=1;
         }
         if((buttons[3].getText()=="X")&&
         (buttons[4].getText()=="X")&&
@@ -113,6 +118,7 @@ public class TicTacToe implements ActionListener
         )
         {
             xWins(3, 3, 5);
+            check=1;
         }
         if((buttons[6].getText()=="X")&&
         (buttons[7].getText()=="X")&&
@@ -120,6 +126,7 @@ public class TicTacToe implements ActionListener
         )
         {
             xWins(6, 7, 8);
+            check=1;
         }
         if((buttons[0].getText()=="X")&&
         (buttons[3].getText()=="X")&&
@@ -127,6 +134,7 @@ public class TicTacToe implements ActionListener
         )
         {
             xWins(0, 3, 6);
+            check=1;
         }
         if((buttons[1].getText()=="X")&&
         (buttons[4].getText()=="X")&&
@@ -134,6 +142,7 @@ public class TicTacToe implements ActionListener
         )
         {
             xWins(1, 4, 7);
+            check=1;
         }
         if((buttons[2].getText()=="X")&&
         (buttons[5].getText()=="X")&&
@@ -148,6 +157,7 @@ public class TicTacToe implements ActionListener
         )
         {
             xWins(0, 4, 8);
+            check=1;
         }
         if((buttons[2].getText()=="X")&&
         (buttons[4].getText()=="X")&&
@@ -155,6 +165,7 @@ public class TicTacToe implements ActionListener
         )
         {
             xWins(2, 4, 6);
+            check=1;
         }
         //O wins function
         if((buttons[0].getText()=="O")&&
@@ -170,6 +181,7 @@ public class TicTacToe implements ActionListener
         )
         {
             oWins(3, 3, 5);
+            check=1;
         }
         if((buttons[6].getText()=="O")&&
         (buttons[7].getText()=="O")&&
@@ -177,6 +189,7 @@ public class TicTacToe implements ActionListener
         )
         {
             oWins(6, 7, 8);
+            check=1;
         }
         if((buttons[0].getText()=="O")&&
         (buttons[3].getText()=="O")&&
@@ -184,6 +197,7 @@ public class TicTacToe implements ActionListener
         )
         {
             oWins(0, 3, 6);
+            check=1;
         }
         if((buttons[1].getText()=="O")&&
         (buttons[4].getText()=="O")&&
@@ -191,6 +205,7 @@ public class TicTacToe implements ActionListener
         )
         {
             oWins(1, 4, 7);
+            check=1;
         }
         if((buttons[2].getText()=="O")&&
         (buttons[5].getText()=="O")&&
@@ -198,6 +213,7 @@ public class TicTacToe implements ActionListener
         )
         {
             oWins(2, 5, 8);
+            check=1;
         }
         if((buttons[0].getText()=="O")&&
         (buttons[4].getText()=="O")&&
@@ -205,6 +221,7 @@ public class TicTacToe implements ActionListener
         )
         {
             oWins(0, 4, 8);
+            check=1;
         }
         if((buttons[2].getText()=="O")&&
         (buttons[4].getText()=="O")&&
@@ -212,7 +229,24 @@ public class TicTacToe implements ActionListener
         )
         {
             oWins(2, 4, 6);
+            check=1;
         }
+        if(check==0)
+        {
+            int flag=0;
+            for(int i = 0; i < 9;i++)
+            {
+                if(buttons[i].getText() == "")
+                {
+                    flag=1;
+                }
+            }
+            if(flag==0)
+            {
+                empty();
+            }
+        }
+
     }
     public void xWins(int a, int b,int c)
     {
@@ -236,4 +270,23 @@ public class TicTacToe implements ActionListener
         }
         textfield.setText("O wins");
     }
+
+   
+    public void empty()
+    {
+        textfield.setText("No One's Win");
+       // To ask user restart the gmae use to create the object of TicTacToe
+        int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to restart the game?", "Confirm Restart", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+        new TicTacToe();
+        }
+        else
+        {
+            System.exit(0);
+        }
+      
+        
+    }
+    
+    
 }
